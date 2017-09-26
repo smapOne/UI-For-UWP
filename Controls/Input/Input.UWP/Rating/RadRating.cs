@@ -1001,11 +1001,11 @@ namespace Telerik.UI.Xaml.Controls.Input
                         this.freezeDisplayValue = false;
                         break;
                     case Location.Left:
-                        this.displayValue = this.itemsSource.Count;
+                        this.displayValue = 0;
                         this.freezeDisplayValue = true;
                         break;
                     case Location.Right:
-                        this.displayValue = 0;
+                        this.displayValue = this.Items.Count;
                         this.freezeDisplayValue = true;
                         break;
                 }
@@ -1032,6 +1032,10 @@ namespace Telerik.UI.Xaml.Controls.Input
 
         private Location GetManipulationDirection(double dy, double dx, double y0, double x0, RadRect rectangle)
         {
+            if (y0 <= 0)
+            {
+                y0++;
+            }
             var angle = Math.Atan2(dy, dx);
 
             var first = Math.Atan2(0 - y0, 0 - x0);
@@ -1041,19 +1045,19 @@ namespace Telerik.UI.Xaml.Controls.Input
 
             if (angle < first || angle > forth)
             {
-                return Location.Right;
+                return Location.Left;
             }
-            else if (angle < second)
+            else if (angle > first && angle < second)
             {
                 return Location.Top;
             }
-            else if (angle < third)
+            else if (angle > second && angle < third)
             {
-                return Location.Left;
+                return Location.Right;
             }
             else
             {
-                // first < angle , angle < forth
+                // angle > third , angle < forth
                 return Location.Bottom;
             }
         }
