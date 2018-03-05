@@ -580,7 +580,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                         this.Value++;
                         break;
                     case VirtualKey.Home:
-                        this.Value = 1;
+                        this.Value = 0.0;
                         handled = true;
                         break;
                     case VirtualKey.End:
@@ -789,7 +789,7 @@ namespace Telerik.UI.Xaml.Controls.Input
             }
 
             double oldValue = (double)args.OldValue;
-            double newValue = RadMath.CoerceValue((double)args.NewValue, 1, rating.itemsSource.Count);
+            double newValue = RadMath.CoerceValue((double)args.NewValue, 0, rating.itemsSource.Count);
 
             if (newValue != rating.Value)
             {
@@ -1001,7 +1001,7 @@ namespace Telerik.UI.Xaml.Controls.Input
                         this.freezeDisplayValue = false;
                         break;
                     case Location.Left:
-                        this.displayValue = 1;
+                        this.displayValue = 0;
                         this.freezeDisplayValue = true;
                         break;
                     case Location.Right:
